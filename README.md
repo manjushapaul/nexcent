@@ -39,10 +39,11 @@ A modern, SEO-optimized, and fast-loading landing page for Nexcent, a business g
 
 ```
 landing-pages/
-├── new.html          # Main HTML file
+├── index.html        # Main HTML file (entry point)
 ├── styles.css        # Custom CSS styles
 ├── script.js         # JavaScript functionality
 ├── images/          # All image assets
+├── vercel.json      # Vercel deployment configuration
 └── README.md        # This file
 ```
 
@@ -53,7 +54,7 @@ landing-pages/
 git clone https://github.com/manjushapaul/nexcent.git
 ```
 
-2. Open `new.html` in your browser or serve it using a local server:
+2. Open `index.html` in your browser or serve it using a local server:
 ```bash
 # Using Python
 python -m http.server 8000
@@ -62,7 +63,7 @@ python -m http.server 8000
 npx http-server
 ```
 
-3. Navigate to `http://localhost:8000/new.html` in your browser
+3. Navigate to `http://localhost:8000/` in your browser (or `http://localhost:8000/index.html`)
 
 ## Browser Support
 
