@@ -41,17 +41,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" as="style">
     
-    <!-- Fonts: Optimized Loading with font-display swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" crossorigin>
-    
-    <!-- Critical CSS - Load immediately -->
+    <!-- Critical CSS - Load immediately (inline critical styles would be better, but this works) -->
     <link rel="stylesheet" href="styles.css">
     
-    <!-- Tailwind CSS CDN - Load with low priority -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Fonts: Optimized Loading - subset to reduce size, font-display swap for performance -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Tailwind CSS CDN - Load asynchronously to prevent render blocking -->
+    <script>
+        // Load Tailwind asynchronously after page load
+        window.addEventListener('load', function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.tailwindcss.com';
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
     
     <!-- Swiper CSS - Load asynchronously -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'" crossorigin>
@@ -208,7 +215,7 @@
                            
                             <div class="hidden md:flex justify-center items-center">
                               
-                                <img src="images/Illustration.png" alt="Business growth illustration showing smart solutions for organizations" class="hero-illustration" width="450" height="375" loading="lazy">
+                                <img src="images/Illustration.png" alt="Business growth illustration showing smart solutions for organizations" class="hero-illustration" width="450" height="375" loading="eager" fetchpriority="high">
                             </div>
                         </div>
                     </div>
@@ -237,7 +244,7 @@
                             <!-- Right Illustration -->
                             <div class="hidden md:flex justify-center items-center">
                              
-                                 <img src="images/rafiki.svg" class="max-w-md" alt="Illustration of trusted business partnership with 500+ clients" width="400" height="400" loading="lazy">
+                                 <img src="images/rafiki.svg" class="max-w-md" alt="Illustration of trusted business partnership with 500+ clients" width="400" height="400" loading="lazy" decoding="async">
                             </div>
                         </div>
                     </div>
@@ -265,7 +272,7 @@
 
                             <!-- Right Illustration -->
                             <div class="hidden md:flex justify-center items-center">
-                              <img src="images/innovation-meet.svg" alt="Award-winning service illustration showing proven results and excellence" width="500" height="450" loading="lazy">
+                              <img src="images/innovation-meet.svg" alt="Award-winning service illustration showing proven results and excellence" width="500" height="450" loading="lazy" decoding="async">
                             </div>
                         </div>
                     </div>
@@ -298,7 +305,7 @@
                         <!-- Slide 1 - First 6 logos -->
                         <div class="swiper-slide">
                             <div class="gap-8 items-center justify-items-center">                           
-                                    <img src="images/client-logo-one.svg" class="client-logo-img" alt="Client logo - Trusted partner of Nexcent" width="120" height="60" loading="lazy">                                         
+                                    <img src="images/client-logo-one.svg" class="client-logo-img" alt="Client logo - Trusted partner of Nexcent" width="120" height="60" loading="lazy" decoding="async">                                         
                             </div>
                         </div>
                         
@@ -647,10 +654,29 @@
         </svg>
     </button>
 
-    <!-- Swiper JS - Deferred for performance -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <!-- Swiper JS - Load asynchronously to reduce blocking time -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" async></script>
     
-    <!-- Link to External JavaScript - Deferred for performance -->
-    <script src="script.js" defer></script>
+    <!-- Link to External JavaScript - Load after Swiper -->
+    <script>
+        // Wait for Swiper to load, then load our script
+        (function() {
+            function loadScript() {
+                if (typeof Swiper !== 'undefined' || document.readyState === 'complete') {
+                    const script = document.createElement('script');
+                    script.src = 'script.js';
+                    script.async = true;
+                    document.body.appendChild(script);
+                } else {
+                    setTimeout(loadScript, 50);
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadScript);
+            } else {
+                loadScript();
+            }
+        })();
+    </script>
 </body>
 </html>

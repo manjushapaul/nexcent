@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "compression": true,
   "headers": [
     {
       "source": "/(.*)",
@@ -24,6 +25,10 @@
         {
           "key": "Permissions-Policy",
           "value": "geolocation=(), microphone=(), camera=()"
+        },
+        {
+          "key": "Accept-Encoding",
+          "value": "gzip, br"
         }
       ]
     },

@@ -1,9 +1,16 @@
 // ========== SWIPER INITIALIZATION ==========
 // Wait for DOM and Swiper library to be ready
+// Use requestIdleCallback for better performance if available
 (function initSwiper() {
     if (typeof Swiper === 'undefined') {
         // Retry after a short delay if Swiper hasn't loaded yet
-        setTimeout(initSwiper, 100);
+        if (window.requestIdleCallback) {
+            requestIdleCallback(function() {
+                setTimeout(initSwiper, 100);
+            });
+        } else {
+            setTimeout(initSwiper, 100);
+        }
         return;
     }
     
@@ -178,7 +185,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Features: Auto-play every 5 seconds, infinite loop, no pagination or arrows
 (function initClientSwiper() {
     if (typeof Swiper === 'undefined') {
-        setTimeout(initClientSwiper, 100);
+        if (window.requestIdleCallback) {
+            requestIdleCallback(function() {
+                setTimeout(initClientSwiper, 100);
+            });
+        } else {
+            setTimeout(initClientSwiper, 100);
+        }
         return;
     }
     
