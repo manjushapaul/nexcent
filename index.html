@@ -49,16 +49,8 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Tailwind CSS CDN - Load asynchronously to prevent render blocking -->
-    <script>
-        // Load Tailwind asynchronously after page load
-        window.addEventListener('load', function() {
-            const script = document.createElement('script');
-            script.src = 'https://cdn.tailwindcss.com';
-            script.async = true;
-            document.head.appendChild(script);
-        });
-    </script>
+    <!-- Tailwind CSS CDN - Load with defer to reduce TTI -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
     
     <!-- Swiper CSS - Load asynchronously -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" media="print" onload="this.media='all'" crossorigin>
@@ -655,28 +647,10 @@
     </button>
 
     <!-- Swiper JS - Load asynchronously to reduce blocking time -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" async></script>
+    <!-- Swiper JS - Use defer to improve TTI -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     
-    <!-- Link to External JavaScript - Load after Swiper -->
-    <script>
-        // Wait for Swiper to load, then load our script
-        (function() {
-            function loadScript() {
-                if (typeof Swiper !== 'undefined' || document.readyState === 'complete') {
-                    const script = document.createElement('script');
-                    script.src = 'script.js';
-                    script.async = true;
-                    document.body.appendChild(script);
-                } else {
-                    setTimeout(loadScript, 50);
-                }
-            }
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', loadScript);
-            } else {
-                loadScript();
-            }
-        })();
-    </script>
+    <!-- Link to External JavaScript - Defer to reduce TTI -->
+    <script src="script.js" defer></script>
 </body>
 </html>

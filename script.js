@@ -1,15 +1,14 @@
 // ========== SWIPER INITIALIZATION ==========
-// Wait for DOM and Swiper library to be ready
-// Use requestIdleCallback for better performance if available
+// Wait for DOM and Swiper library to be ready - optimize for TTI
 (function initSwiper() {
-    if (typeof Swiper === 'undefined') {
-        // Retry after a short delay if Swiper hasn't loaded yet
-        if (window.requestIdleCallback) {
-            requestIdleCallback(function() {
-                setTimeout(initSwiper, 100);
+    // Wait for both DOM and Swiper to be ready
+    if (document.readyState === 'loading' || typeof Swiper === 'undefined') {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initSwiper, 50);
             });
         } else {
-            setTimeout(initSwiper, 100);
+            setTimeout(initSwiper, 50);
         }
         return;
     }
@@ -181,12 +180,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ========== CLIENT LOGOS SWIPER INITIALIZATION ==========
-// Initialize Swiper slider for client logos section
+// Initialize Swiper slider for client logos section - defer to improve TTI
 // Features: Auto-play every 5 seconds, infinite loop, no pagination or arrows
 (function initClientSwiper() {
-    if (typeof Swiper === 'undefined') {
-        if (window.requestIdleCallback) {
-            requestIdleCallback(function() {
+    if (document.readyState === 'loading' || typeof Swiper === 'undefined') {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(initClientSwiper, 100);
             });
         } else {
