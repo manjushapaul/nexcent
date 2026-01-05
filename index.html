@@ -105,6 +105,7 @@
         "@type": "Organization",
         "name": "Nexcent"
       },
+
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://nexcent.com/search?q={search_term_string}",
@@ -112,6 +113,9 @@
       }
     }
     </script>
+   
+<script src="https://ai-chatbot-saas-vert.vercel.app/chat.js" data-widget-id="e6ffdbeaef414e80988ed28947af63e0"></script>
+
 </head>
 <body class="bg-white">
     <!-- Skip to main content link for accessibility -->
@@ -652,5 +656,16 @@
     
     <!-- Link to External JavaScript - Defer to reduce TTI -->
     <script src="script.js" defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatbot = document.getElementById('chatbot');
+            chatbot.addEventListener('click', function() {
+                chatbot.classList.add('active');
+            });
+        });
+    </script>
+    <script src="https://ai-chatbot-saas-vert.vercel.app/chat.js" data-widget-id="e6ffdbeaef414e80988ed28947af63e0"></script>
+
 </body>
 </html>
